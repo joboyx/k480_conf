@@ -33,6 +33,7 @@
 //If using k810 #define HID_DEVICE_ID_K810                      (__s16)0xb319
 #define HID_DEVICE_ID_K480                      (__s16)0xb330
 #define HID_DEVICE_ID_K480_ALT                  (__s16)0xb33c
+#define HID_DEVICE_ID_K480_ALT2                 (__s16)0xb33d
 
 
 const char k480_seq_fkeys_on[]  = {0x10, 0xff, 0x08, 0x1c, 0x00, 0x00, 0x00};
@@ -57,8 +58,8 @@ void send(const int fd, const char * buf, const int len)
 		perror("write");
 	}
 	else if (res == len)
-       	{
-		// printf("Configuration sent.\n");
+    {
+		printf("Configuration sent.\n");
 	}
 	else
 	{
@@ -153,7 +154,8 @@ int main(int argc, char **argv)
 		if (info.bustype != BUS_BLUETOOTH ||
 		    info.vendor  != HID_VENDOR_ID_LOGITECH ||
 		    (info.product != HID_DEVICE_ID_K480 &&
-					info.product != HID_DEVICE_ID_K480_ALT))
+					info.product != HID_DEVICE_ID_K480_ALT &&
+                    info.product != HID_DEVICE_ID_K480_ALT2))
 		{
 			errno = EPERM;
 			perror("The given device is not a supported "
